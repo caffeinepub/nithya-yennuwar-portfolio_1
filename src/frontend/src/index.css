@@ -1,0 +1,937 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap");
+
+@font-face {
+  font-family: "DM Serif Display";
+  src: url("/assets/fonts/DMSerifDisplay.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Parisienne";
+  src: url("/assets/fonts/Parisienne.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* OKLCH tokens — light Mediterranean palette */
+    --background: 0.96 0.02 85;
+    --foreground: 0.18 0.02 255;
+    --card: 0.99 0.005 85;
+    --card-foreground: 0.18 0.02 255;
+    --popover: 0.99 0.005 85;
+    --popover-foreground: 0.18 0.02 255;
+    --primary: 0.43 0.14 255;
+    --primary-foreground: 0.98 0 0;
+    --secondary: 0.94 0.04 85;
+    --secondary-foreground: 0.43 0.14 255;
+    --muted: 0.94 0.015 85;
+    --muted-foreground: 0.52 0.03 255;
+    --accent: 0.71 0.16 65;
+    --accent-foreground: 0.18 0.02 255;
+    --destructive: 0.44 0.22 25;
+    --destructive-foreground: 0.98 0 0;
+    --border: 0.88 0.02 85;
+    --input: 0.88 0.02 85;
+    --ring: 0.43 0.14 255;
+    --chart-1: 0.43 0.14 255;
+    --chart-2: 0.71 0.16 65;
+    --chart-3: 0.67 0.09 175;
+    --chart-4: 0.6 0.14 25;
+    --chart-5: 0.8 0.08 85;
+    --sidebar: 0.97 0.01 85;
+    --sidebar-foreground: 0.18 0.02 255;
+    --sidebar-primary: 0.43 0.14 255;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.94 0.04 85;
+    --sidebar-accent-foreground: 0.43 0.14 255;
+    --sidebar-border: 0.88 0.02 85;
+    --sidebar-ring: 0.43 0.14 255;
+
+    /* Brand custom tokens */
+    --amalfi-blue: #2e5aa7;
+    --sea-breeze: #86c5ff;
+    --cream-gelato: #f8e6a0;
+    --citrus-zest: #ffa62b;
+    --warm-white: #fdfaf4;
+    --charcoal: #1a1a2e;
+    --muted-gray: #6b7280;
+    --soft-blue-tint: #eef4ff;
+
+    /* Semantic theme tokens — light */
+    --bg-page: #f9f7f2;
+    --bg-card: #ffffff;
+    --bg-card-hover: #fdfaf4;
+    --bg-section-alt: #eef4ff;
+    --bg-nav-scrolled: rgba(253, 250, 244, 0.95);
+    --bg-mobile-menu: rgba(253, 250, 244, 0.98);
+    --text-primary: #1a1a2e;
+    --text-muted: #6b7280;
+    --heading-accent: #2e5aa7;
+    --border-subtle: rgba(46, 90, 167, 0.1);
+    --border-strong: rgba(46, 90, 167, 0.2);
+    --shadow-card: rgba(46, 90, 167, 0.08);
+    --stripe-blue-color: rgba(46, 90, 167, 0.055);
+    --stripe-warm-color: rgba(255, 166, 43, 0.065);
+    --stripe-sea-color: rgba(134, 197, 255, 0.08);
+  }
+
+  /* ── Vibrant mode — bold summer Mediterranean palette (toggle ON) ── */
+  [data-theme="dark"] {
+    /* Bright sky-tinted white backgrounds — light but vivid */
+    --bg-page: #e8f4ff;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f0faff;
+    --bg-section-alt: #e0f5f2;
+    --bg-nav-scrolled: rgba(232, 244, 255, 0.96);
+    --bg-mobile-menu: rgba(232, 244, 255, 0.99);
+    /* Dark charcoal text — readable on bright bg */
+    --text-primary: #1a1a2e;
+    /* Rich cobalt muted text */
+    --text-muted: #2d5a8e;
+    /* Vivid punchy orange heading accent */
+    --heading-accent: #e06b00;
+    /* Electric teal borders */
+    --border-subtle: rgba(0, 181, 168, 0.25);
+    --border-strong: rgba(0, 181, 168, 0.5);
+    /* Cobalt-tinted shadow */
+    --shadow-card: rgba(74, 123, 247, 0.15);
+    /* Vibrant stripe overlays */
+    --stripe-blue-color: rgba(74, 123, 247, 0.1);
+    --stripe-warm-color: rgba(255, 107, 0, 0.1);
+    --stripe-sea-color: rgba(0, 181, 168, 0.1);
+    /* Brand token overrides — vivid cobalt, electric teal, punchy orange, golden yellow */
+    --amalfi-blue: #4a7bf7;
+    --sea-breeze: #00b5a8;
+    --citrus-zest: #ff6b00;
+    --cream-gelato: #f5c800;
+    --charcoal: #1a1a2e;
+    --muted-gray: #4a6fa5;
+    --soft-blue-tint: #e8f4ff;
+    --warm-white: #fafeff;
+  }
+
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+  }
+  [data-theme="dark"] html,
+  html[data-theme="dark"] {
+    color-scheme: light;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-page);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--amalfi-blue);
+    border-radius: 3px;
+    opacity: 0.5;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--citrus-zest);
+  }
+}
+
+/* ============================================================
+   Grain / Paper Texture Overlay
+   ============================================================ */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ============================================================
+   Custom Cursor
+   ============================================================ */
+.cursor-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--citrus-zest);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s;
+}
+.cursor-ring {
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid rgba(255, 166, 43, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.cursor-ring.hovered {
+  width: 44px;
+  height: 44px;
+  border-color: rgba(255, 166, 43, 0.9);
+  box-shadow: 0 0 14px rgba(255, 166, 43, 0.4);
+}
+.custom-cursor-active {
+  cursor: none !important;
+}
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
+/* ============================================================
+   Mediterranean Stripe Animations
+   ============================================================ */
+@keyframes stripe-drift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@keyframes stripe-drift-diagonal {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 60px 60px;
+  }
+}
+
+@keyframes stripe-breathe {
+  0%,
+  100% {
+    opacity: 0.07;
+  }
+  50% {
+    opacity: 0.14;
+  }
+}
+
+@keyframes stripe-sweep {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(300%) skewX(-15deg);
+    opacity: 0;
+  }
+}
+
+/* Sweep beam — light shimmer across hero */
+.stripe-sweep-beam {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  animation: stripe-sweep 9s ease-in-out infinite;
+  animation-delay: 2.5s;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Hero: subtle diagonal blue stripes ── */
+.stripe-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 18px,
+    var(--stripe-blue-color) 18px,
+    var(--stripe-blue-color) 20px
+  );
+  animation: stripe-drift-diagonal 9s linear infinite;
+}
+
+/* ── Warm: horizontal amber/citrus tones ── */
+.stripe-warm::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 28px,
+    var(--stripe-warm-color) 28px,
+    var(--stripe-warm-color) 30px
+  );
+  animation: stripe-drift 7s linear infinite;
+}
+
+/* ── Blue: light diagonal sea-breeze stripes ── */
+.stripe-blue::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 24px,
+    var(--stripe-sea-color) 24px,
+    var(--stripe-sea-color) 26px
+  );
+  animation: stripe-drift-diagonal 11s linear infinite;
+}
+
+/* ── Textile: fine woven fabric grid ── */
+.stripe-textile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 14px,
+      var(--border-subtle) 14px,
+      var(--border-subtle) 15px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 14px,
+      var(--border-subtle) 14px,
+      var(--border-subtle) 15px
+    );
+  animation: stripe-breathe 5s ease-in-out infinite;
+}
+
+/* ── Mediterranean stripe bar — section divider ── */
+.med-stripe-bar {
+  height: 6px;
+  flex-shrink: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    #2e5aa7 0px,
+    #2e5aa7 20px,
+    #86c5ff 20px,
+    #86c5ff 40px,
+    #ffa62b 40px,
+    #ffa62b 60px,
+    #f8e6a0 60px,
+    #f8e6a0 80px
+  );
+  background-size: 80px 6px;
+  animation: stripe-drift 3.5s linear infinite;
+}
+
+/* ── Vibrant mode stripe bar — bold summer Mediterranean palette ── */
+[data-theme="dark"] .med-stripe-bar {
+  background: repeating-linear-gradient(
+    90deg,
+    #4a7bf7 0px,
+    #4a7bf7 20px,
+    #00b5a8 20px,
+    #00b5a8 40px,
+    #ff6b00 40px,
+    #ff6b00 60px,
+    #f5c800 60px,
+    #f5c800 80px
+  );
+  background-size: 80px 6px;
+}
+
+/* ============================================================
+   Reveal animations
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.delay-100 {
+  transition-delay: 0.1s;
+}
+.delay-200 {
+  transition-delay: 0.2s;
+}
+.delay-300 {
+  transition-delay: 0.3s;
+}
+.delay-400 {
+  transition-delay: 0.4s;
+}
+.delay-500 {
+  transition-delay: 0.5s;
+}
+.delay-600 {
+  transition-delay: 0.6s;
+}
+.delay-700 {
+  transition-delay: 0.7s;
+}
+
+/* Section label */
+.section-label {
+  font-family: "Inter", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Scroll indicator bounce */
+@keyframes scroll-bounce {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(8px);
+  }
+}
+.scroll-indicator {
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+/* Case study card hover */
+.case-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.case-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(46, 90, 167, 0.12), 0 8px 16px
+    rgba(0, 0, 0, 0.06);
+}
+
+/* Skill card hover */
+.skill-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.skill-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 16px 32px rgba(46, 90, 167, 0.1);
+  border-color: var(--amalfi-blue) !important;
+}
+
+/* Timeline card */
+.timeline-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.timeline-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(46, 90, 167, 0.1);
+}
+
+/* Nav scrolled */
+.nav-scrolled {
+  background: var(--bg-nav-scrolled) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 20px var(--shadow-card);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* CTA button */
+.cta-btn {
+  transition: all 0.25s ease;
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 166, 43, 0.35);
+}
+
+/* Decorative divider line */
+.editorial-divider {
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(to right, var(--amalfi-blue), var(--sea-breeze));
+  border-radius: 2px;
+}
+
+/* ============================================================
+   Page Entry Animation (Case Study)
+   ============================================================ */
+@keyframes page-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.page-enter {
+  animation: page-zoom-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ============================================================
+   Metric Pulse Animation
+   ============================================================ */
+@keyframes metric-pulse {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.metric-pulse {
+  animation: metric-pulse 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ============================================================
+   Marquee Ticker Strip (Hero Section)
+   ============================================================ */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+  align-items: center;
+}
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ============================================================
+   How I Work Section Layout
+   ============================================================ */
+.how-i-work-grid {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0;
+}
+.how-i-work-step-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+.how-i-work-step {
+  position: relative;
+  border-radius: 1rem;
+  padding: 1.5rem 1.25rem;
+  flex: 1;
+  min-width: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.how-i-work-step:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(46, 90, 167, 0.1) !important;
+}
+.how-i-work-arrow {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  margin-top: -16px;
+}
+/* On desktop: show horizontal arrow, hide vertical */
+.arrow-horizontal {
+  display: block;
+}
+.arrow-vertical {
+  display: none;
+}
+
+/* ============================================================
+   How I Work — Mobile (Vertical)
+   ============================================================ */
+@media (max-width: 768px) {
+  .how-i-work-grid {
+    flex-direction: column;
+    gap: 0;
+  }
+  .how-i-work-step-wrapper {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .how-i-work-step {
+    width: 100%;
+  }
+  .how-i-work-arrow {
+    padding: 4px 0;
+    margin-top: 0;
+    transform: none;
+  }
+  .arrow-horizontal {
+    display: none;
+  }
+  .arrow-vertical {
+    display: block;
+  }
+}
+
+/* ============================================================
+   Spinner (for lazy load fallback)
+   ============================================================ */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================================
+   Mobile Responsive Tweaks
+   ============================================================ */
+@media (max-width: 480px) {
+  .med-stripe-bar {
+    height: 8px;
+  }
+  .section-label {
+    font-size: 0.6rem;
+  }
+}
+
+/* ============================================================
+   prefers-reduced-motion — Accessibility
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left,
+  .reveal-right {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .stripe-hero::before,
+  .stripe-warm::before,
+  .stripe-blue::before,
+  .stripe-textile::before {
+    animation: none !important;
+  }
+  .med-stripe-bar {
+    animation: none !important;
+  }
+  .stripe-sweep-beam {
+    animation: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+  .scroll-indicator {
+    animation: none !important;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   Floating Mediterranean Elements — Drift (existing)
+   ============================================================ */
+@keyframes float-drift-1 {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-30px) translateX(15px) rotate(8deg);
+  }
+  50% {
+    transform: translateY(-15px) translateX(-10px) rotate(-5deg);
+  }
+  75% {
+    transform: translateY(-40px) translateX(20px) rotate(12deg);
+  }
+}
+
+@keyframes float-drift-2 {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-25px) translateX(-20px) rotate(-10deg);
+  }
+  66% {
+    transform: translateY(-50px) translateX(10px) rotate(6deg);
+  }
+}
+
+@keyframes float-drift-3 {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-35px) rotate(15deg) scale(1.05);
+  }
+}
+
+@keyframes float-pulse {
+  0%,
+  100% {
+    opacity: var(--el-opacity, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    opacity: calc(var(--el-opacity, 0.2) * 1.5);
+    transform: scale(1.08);
+  }
+}
+
+/* ============================================================
+   Floating Mediterranean Elements — Enhanced (new)
+   ============================================================ */
+@keyframes float-sway {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-22px) translateX(12px) rotate(6deg);
+  }
+  40% {
+    transform: translateY(-38px) translateX(-8px) rotate(-4deg);
+  }
+  60% {
+    transform: translateY(-28px) translateX(18px) rotate(9deg);
+  }
+  80% {
+    transform: translateY(-45px) translateX(-5px) rotate(-7deg);
+  }
+}
+
+@keyframes float-orbit {
+  0% {
+    transform: rotate(0deg) translateX(18px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(18px) rotate(-360deg);
+  }
+}
+
+@keyframes float-breathe {
+  0%,
+  100% {
+    transform: scale(1) rotate(var(--init-rot, 0deg));
+    opacity: var(--el-opacity, 0.25);
+  }
+  50% {
+    transform: scale(1.12) rotate(calc(var(--init-rot, 0deg) + 8deg));
+    opacity: calc(var(--el-opacity, 0.25) * 1.4);
+  }
+}
+
+@keyframes float-shimmer {
+  0%,
+  100% {
+    filter: drop-shadow(2px 6px 12px rgba(46, 90, 167, 0.2))
+      drop-shadow(0 0 8px rgba(255, 166, 43, 0.06));
+  }
+  50% {
+    filter: drop-shadow(2px 6px 16px rgba(46, 90, 167, 0.3))
+      drop-shadow(0 0 24px rgba(255, 166, 43, 0.18));
+  }
+}
+
+/* ============================================================
+   Tap Burst (Mobile Lemon Scatter)
+   ============================================================ */
+@keyframes tap-burst {
+  0% {
+    opacity: 1;
+    transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--tx, 0px) * 3), calc(var(--ty, 0px) * 3))
+      scale(0.5);
+  }
+}
+
+/* ============================================================
+   Sparkle Trail (Desktop Fast-Move Particles)
+   ============================================================ */
+@keyframes sparkle-fade {
+  0% {
+    opacity: 0.9;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--sx, 5px), var(--sy, -10px)) scale(0.3);
+  }
+}
+
+/* ============================================================
+   Theme Toggle Button (legacy, kept for any fallback usage)
+   ============================================================ */
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-subtle);
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+    transform 0.2s ease;
+  flex-shrink: 0;
+}
+.theme-toggle-btn:hover {
+  background: var(--bg-section-alt);
+  border-color: var(--border-strong);
+  transform: scale(1.1);
+}
+
+/* ============================================================
+   Sunflower Toggle Button
+   ============================================================ */
+.sunflower-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+}
+.sunflower-btn:hover {
+  transform: scale(1.18);
+}
+
+/* Petals group — transitions on bloom/close */
+.sunflower-petals {
+  transform-origin: 14px 14px;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s
+    ease, filter 0.3s ease;
+}
+.sunflower-petals.bloomed {
+  transform: scale(1) rotate(0deg);
+  opacity: 1;
+  filter: drop-shadow(0 0 7px rgba(255, 166, 43, 0.75))
+    drop-shadow(0 0 18px rgba(255, 166, 43, 0.35));
+}
+.sunflower-petals.closed {
+  transform: scale(0.55) rotate(-22deg);
+  opacity: 0.42;
+  filter: none;
+}
+
+/* Center circle */
+.sunflower-center {
+  transition: fill 0.3s ease, transform 0.3s ease;
+  transform-origin: 14px 14px;
+}
+.sunflower-center.bloomed {
+  transform: scale(1);
+}
+.sunflower-center.closed {
+  transform: scale(0.75);
+}
+
+/* Sunflower bloom keyframe — extra radiant pulse on click */
+@keyframes sunflower-bloom-pulse {
+  0% {
+    filter: drop-shadow(0 0 3px rgba(255, 166, 43, 0.4));
+  }
+  40% {
+    filter: drop-shadow(0 0 14px rgba(255, 166, 43, 0.9))
+      drop-shadow(0 0 28px rgba(255, 200, 80, 0.6));
+  }
+  100% {
+    filter: drop-shadow(0 0 7px rgba(255, 166, 43, 0.75))
+      drop-shadow(0 0 18px rgba(255, 166, 43, 0.35));
+  }
+}
+.sunflower-petals.bloomed {
+  animation: sunflower-bloom-pulse 0.55s cubic-bezier(0.34, 1.56, 0.64, 1)
+    forwards;
+}
